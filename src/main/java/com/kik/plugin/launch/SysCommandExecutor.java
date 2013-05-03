@@ -1,4 +1,5 @@
 package com.kik.plugin.launch;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.util.List;
  */
 public class SysCommandExecutor
 {	
+	private static final int MAX_BUFFER_SIZE = 1024;
 	public static interface ILogDevice
 	{
 		public void log(String str);
@@ -69,13 +71,20 @@ public class SysCommandExecutor
 		
 		private void readCommandOutput() throws IOException
 		{		
-			BufferedReader bufOut = new BufferedReader(new InputStreamReader(fInputStream));		
+			BufferedInputStream bufOut = new BufferedInputStream(fInputStream);		
 			String line = null;
-			while ( (fStop == false) && ((line = bufOut.readLine()) != null) )
-			{
-				fBuffer.append(line + fNewLine);
-				printToDisplayDevice(line);
-			}		
+			byte[] ret = new byte[MAX_BUFFER_SIZE];
+			boolean done = false;
+
+			while (!done) {
+				int read = bufOut.read(ret);
+				if (read == -1) {
+					done = true;
+					break;
+				}
+				fBuffer.append(new String(ret, 0, read));	
+			}
+				
 			bufOut.close();
 			//printToConsole("END OF: " + fThreadId); //DEBUG
 		}
