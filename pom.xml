@@ -4,7 +4,7 @@
   <groupId>com.kik.plugin</groupId>
   <artifactId>commandline-params</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.1</version>
+  <version>1.2</version>
   <name>commandline-params Maven Mojo</name>
   <url>http://maven.apache.org</url>
   <dependencies>
