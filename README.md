@@ -1,13 +1,15 @@
 CLIPropertiesMojo
 ==============
 
-A simple mojo to add build properties that are populated by executing CLI commands.
+A simple mojo to add build properties that are populated by executing CLI commands. 
+
 
 SAMPLE USAGE
 ==============
 
 To use you will have to host on your own nexus repository, but a sample configuration can include:
 
+```xml
   <plugin>
   <groupId>com.kik.plugin</groupId>
   <artifactId>commandline-params</artifactId>
@@ -33,3 +35,4 @@ To use you will have to host on your own nexus repository, but a sample configur
 	</execution>
 	</executions>
   </plugin>
+```
